@@ -1,6 +1,5 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using CitySearch;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CitySearchTests
@@ -11,14 +10,20 @@ namespace CitySearchTests
     [TestClass]
     public class UserInputValidatorTests
     {
+        private readonly UserInputValidator _underTest;
+
         public UserInputValidatorTests()
         {
-            //
-            // TODO: Add constructor logic here
-            //
+            _underTest = new UserInputValidator();
         }
 
         [DataTestMethod]
+        [DataRow("fhfresdfdsf ", true)]
+        [DataRow("fhfre sdfdsf ", true)]
+        [DataRow(" fhfresd ", true)]
+        [DataRow("-fhfresd ", true)]
+        [DataRow("-fhfresd-", true)]
+        [DataRow("-ANANA-", true)]
         [DataRow("fhf12", false)]
         [DataRow("2386475234", false)]
         [DataRow("121sdfdsf34", false)]
@@ -32,12 +37,15 @@ namespace CitySearchTests
         [DataRow("kgkg(", false)]
         [DataRow("ssdf)", false)]
         [DataRow("jdjd_", false)]
-        [DataRow("fhf12", false)]
         public void IsValid_EnsureCorrect(string input, bool expectedResult)
         {
-            //
-            // TODO: Add test logic here
-            //
+            // Arrange
+
+            // Act
+            var resultVal = _underTest.IsValid(input);
+
+            // Assert
+            resultVal.Should().Be(expectedResult);
         }
     }
 }

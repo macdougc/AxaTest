@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CitySearch;
 using CitySearch.Interfaces;
-using CitySearchHelper.Interfaces;
 
 namespace CitySearch
 {
@@ -27,7 +22,7 @@ namespace CitySearch
         /// <summary>
         /// The string finder.
         /// </summary>
-        private readonly IStringFinder _stringFinder;
+        private readonly ICityNameFinder _cityNameFinder;
 
         /// <summary>
         /// The city next letter helper.
@@ -44,23 +39,23 @@ namespace CitySearch
         /// </summary>
         /// <param name="cityListRepository">The city list repository.</param>
         /// <param name="validator">The validator.</param>
-        /// <param name="stringFinder">The string finder.</param>
+        /// <param name="cityNameFinder">The string finder.</param>
         /// <param name="cityNextLetterHelper">The next letter helper.</param>
         /// <exception cref="System.ArgumentNullException">
         /// validator
         /// or
-        /// stringFinder
+        /// cityNameFinder
         /// or
         /// cityListRepository.
         /// </exception>
         public CityFinder(
             ICityListRepository cityListRepository,
             IValidator validator,
-            IStringFinder stringFinder,
+            ICityNameFinder cityNameFinder,
             ICityNextLetterHelper cityNextLetterHelper)
         {
             _validator = validator ?? throw new ArgumentNullException(nameof(validator));
-            _stringFinder = stringFinder ?? throw new ArgumentNullException(nameof(stringFinder));
+            _cityNameFinder = cityNameFinder ?? throw new ArgumentNullException(nameof(cityNameFinder));
             _cityNextLetterHelper = cityNextLetterHelper ?? throw new ArgumentNullException(nameof(cityNextLetterHelper));
             _cityListRepository = cityListRepository ?? throw new ArgumentNullException(nameof(cityListRepository));
         }
@@ -80,7 +75,7 @@ namespace CitySearch
             }
 
             var cityList = _cityListRepository.GetCities();
-            var cities = _stringFinder.FindAllStringsBeginningWithSubstring(cityList, searchString);
+            var cities = _cityNameFinder.FindAllCitiesBeginningWithSubstring(cityList, searchString);
             var validNextLetters = _cityNextLetterHelper.GetNextLetters(cities, searchString);
 
             var cityResult = new CityResult

@@ -4,7 +4,6 @@ using AutoFixture;
 using AutoFixture.AutoMoq;
 using CitySearch;
 using CitySearch.Interfaces;
-using CitySearchHelper.Interfaces;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -17,7 +16,7 @@ namespace CitySearchTests
         private readonly CityFinder _underTest;
         private readonly IFixture _fixture;
         private readonly Mock<IValidator> _validatorMock;
-        private readonly Mock<IStringFinder> _stringFinderMock;
+        private readonly Mock<ICityNameFinder> _cityNameFinderMock;
         private readonly Mock<ICityNextLetterHelper> _cityNextLetterHelperMock;
         private readonly Mock<ICityListRepository> _cityListRepositoryMock;
 
@@ -28,7 +27,7 @@ namespace CitySearchTests
             _fixture = new Fixture().Customize(new AutoMoqCustomization() { ConfigureMembers = true });
             _cityListRepositoryMock = _fixture.Freeze<Mock<ICityListRepository>>();
             _cityNextLetterHelperMock = _fixture.Freeze<Mock<ICityNextLetterHelper>>();
-            _stringFinderMock = _fixture.Freeze<Mock<IStringFinder>>();
+            _cityNameFinderMock = _fixture.Freeze<Mock<ICityNameFinder>>();
             _validatorMock = _fixture.Freeze<Mock<IValidator>>();
 
             _underTest = _fixture.Create<CityFinder>();
@@ -38,7 +37,7 @@ namespace CitySearchTests
         public void Initialise()
         {
             _validatorMock.Invocations.Clear();
-            _stringFinderMock.Invocations.Clear();
+            _cityNameFinderMock.Invocations.Clear();
             _cityNextLetterHelperMock.Invocations.Clear();
             _cityListRepositoryMock.Invocations.Clear();
         }
@@ -51,7 +50,7 @@ namespace CitySearchTests
                 var underTest = new CityFinder(
                     null,
                     _validatorMock.Object,
-                    _stringFinderMock.Object,
+                    _cityNameFinderMock.Object,
                     _cityNextLetterHelperMock.Object);
 
                 Assert.Fail("Should have thrown an exception.");
@@ -70,7 +69,7 @@ namespace CitySearchTests
                 var underTest = new CityFinder(
                     _cityListRepositoryMock.Object,
                     null,
-                    _stringFinderMock.Object,
+                    _cityNameFinderMock.Object,
                     _cityNextLetterHelperMock.Object);
 
                 Assert.Fail("Should have thrown an exception.");
@@ -82,7 +81,7 @@ namespace CitySearchTests
         }
 
         [TestMethod]
-        public void CityFinder_GivenNullStringFinder_ExpectException()
+        public void CityFinder_GivenNullCityNameFinder_ExpectException()
         {
             try
             {
@@ -96,7 +95,7 @@ namespace CitySearchTests
             }
             catch (ArgumentNullException e)
             {
-                e.ParamName.Should().BeEquivalentTo("stringFinder");
+                e.ParamName.Should().BeEquivalentTo("cityNameFinder");
             }
         }
 
@@ -108,7 +107,7 @@ namespace CitySearchTests
                 var underTest = new CityFinder(
                     _cityListRepositoryMock.Object,
                     _validatorMock.Object,
-                    _stringFinderMock.Object,
+                    _cityNameFinderMock.Object,
                     null);
 
                 Assert.Fail("Should have thrown an exception.");
@@ -154,8 +153,8 @@ namespace CitySearchTests
             _cityListRepositoryMock.Setup(repo => repo.GetCities()).Returns(cities);
             _validatorMock.Setup(v => v.IsValid(It.IsAny<string>())).Returns(true);
 
-            _stringFinderMock
-                .Setup(s => s.FindAllStringsBeginningWithSubstring(It.IsAny<IEnumerable<string>>(), It.IsAny<string>()))
+            _cityNameFinderMock
+                .Setup(s => s.FindAllCitiesBeginningWithSubstring(It.IsAny<IEnumerable<string>>(), It.IsAny<string>()))
                 .Returns(expectedCities);
 
             _cityNextLetterHelperMock
@@ -173,7 +172,7 @@ namespace CitySearchTests
             _validatorMock.Verify(v => v.IsValid(searchString), Times.Once);
             _cityListRepositoryMock.Verify(repo => repo.GetCities(), Times.Once);
             _cityNextLetterHelperMock.Verify(c => c.GetNextLetters(expectedCities, searchString), Times.Once);
-            _stringFinderMock.Verify(s => s.FindAllStringsBeginningWithSubstring(cities, searchString), Times.Once);
+            _cityNameFinderMock.Verify(s => s.FindAllCitiesBeginningWithSubstring(cities, searchString), Times.Once);
         }
     }
 }

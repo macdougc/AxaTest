@@ -7,8 +7,8 @@
     <ProjectGuid>{57F133D3-862A-4E8E-8846-F90D69E73B4C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CitySearchHelper</RootNamespace>
-    <AssemblyName>CitySearchHelper</AssemblyName>
+    <RootNamespace>CitySearch</RootNamespace>
+    <AssemblyName>CitySearch</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -63,18 +63,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CityFinder.cs" />
+    <Compile Include="CityListRepository.cs" />
+    <Compile Include="CityNameFinder.cs" />
+    <Compile Include="CityNextLetterHelper.cs" />
     <Compile Include="CityResult.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\ICityFinder.cs" />
     <Compile Include="Interfaces\ICityListRepository.cs" />
     <Compile Include="Interfaces\ICityResult.cs" />
-    <Compile Include="Interfaces\IStringFinder.cs" />
+    <Compile Include="Interfaces\ICityNameFinder.cs" />
     <Compile Include="Interfaces\ICityNextLetterHelper.cs" />
     <Compile Include="Interfaces\IValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserInputValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="world-cities.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\CitySearchTestApp\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />

@@ -8,3 +8,5 @@
 /CitySearchTests/bin/*
 /CitySearchTests/obj/*
 /CitySearchTestApp/CitySearchTestApp.csproj.user
+/CitySearch/bin/*
+/CitySearch/obj/*
