@@ -52,6 +52,9 @@
     <Reference Include="Autofac, Version=4.9.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\CitySearchTestApp\packages\Autofac.4.9.2\lib\net45\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\CitySearchTestApp\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -67,6 +70,7 @@
     <Compile Include="CityNameFinder.cs" />
     <Compile Include="CityNextLetterHelper.cs" />
     <Compile Include="CityResult.cs" />
+    <Compile Include="Dtos\WorldCitiesDto.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\ICityFinder.cs" />
     <Compile Include="Interfaces\ICityListRepository.cs" />
