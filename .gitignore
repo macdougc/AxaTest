@@ -10,3 +10,4 @@
 /CitySearchTestApp/CitySearchTestApp.csproj.user
 /CitySearch/bin/*
 /CitySearch/obj/*
+/CitySearchTestApp/*.user

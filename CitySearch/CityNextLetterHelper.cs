@@ -18,7 +18,7 @@ namespace CitySearch
         /// <returns>The next letters for the list of given cities.</returns>
         public IEnumerable<string> GetNextLetters(IEnumerable<string> cities, string searchString)
         {
-            return cities.Select(city => city.Substring(searchString.Length, 1));
+            return cities.Select(city => city.Substring(searchString.Length, 1)).Distinct();
         }
     }
 }

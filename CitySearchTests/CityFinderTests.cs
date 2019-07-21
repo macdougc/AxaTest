@@ -118,7 +118,7 @@ namespace CitySearchTests
             }
         }
 
-        
+        [TestMethod]
         public void Search_GivenInvalidInput_ExpectException()
         {
             var searchString = _fixture.Create<string>();
@@ -136,7 +136,7 @@ namespace CitySearchTests
             catch (ArgumentOutOfRangeException e)
             {
                 e.ParamName.Should().BeEquivalentTo("searchString");
-                e.Message.Should().BeEquivalentTo(InvalidInputErrorMessage);
+                e.Message.Should().Contain(InvalidInputErrorMessage);
                 _validatorMock.Verify(v => v.IsValid(searchString), Times.Once);
             }
         }

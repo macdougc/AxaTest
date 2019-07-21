@@ -24,7 +24,7 @@ namespace CitySearch
                 return cityList;
             }
 
-            var matchingCities = cityList.Where(city => city.StartsWith(subString, StringComparison.InvariantCultureIgnoreCase));
+            var matchingCities = cityList.Where(city => city.StartsWith(subString, StringComparison.InvariantCultureIgnoreCase)).Distinct();
 
             return matchingCities;
         }
