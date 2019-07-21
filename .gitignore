@@ -1,0 +1,13 @@
+/CitySearchHelper/bin/*
+/CitySearchHelper/*.csproj.user
+/CitySearchHelper/obj/*
+/CitySearchTestApp/bin/*
+/CitySearchTestApp/obj/*
+/CitySearchTestApp/packages/*
+/CitySearchTestApp/.vs/*
+/CitySearchTests/bin/*
+/CitySearchTests/obj/*
+/CitySearchTestApp/CitySearchTestApp.csproj.user
+/CitySearch/bin/*
+/CitySearch/obj/*
+/CitySearchTestApp/*.user
